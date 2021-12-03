@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gm,
   },
-  password: { type: String, required: true },
+  passwordHash: { type: String, required: true },
   orders: [{ type: mongoose.Types.ObjectId, ref: "Order" }],
 });
 

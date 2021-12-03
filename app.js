@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 // Importar o Express
 const express = require("express");
 // Biblioteca de logs
