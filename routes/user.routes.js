@@ -53,6 +53,12 @@ router.post("/signup", async (req, res) => {
     res.status(201).json(result);
   } catch (err) {
     console.log(err);
+
+    // No mongoose, código de erro 11000 sempre se referem à erros de validação do modelo
+    if (err.code === 11000) {
+      return res.status(400).json(err.message ? err.message : err);
+    }
+
     res.status(500).json(err);
   }
 });

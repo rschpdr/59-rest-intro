@@ -4,6 +4,8 @@ require("dotenv").config();
 const express = require("express");
 // Biblioteca de logs
 const morgan = require("morgan");
+// Configuração do CORS (Cross-Origin-Resource-Sharing)
+const cors = require("cors");
 
 const API_VERSION = 1;
 
@@ -17,6 +19,13 @@ app.use(express.json());
 
 // Ligando a biblioteca de logs no Express
 app.use(morgan("dev"));
+
+// Configurando o servidor para aceitar requisições do nosso servidor do front (servidor do React)
+app.use(
+  cors({
+    origin: "http://localhost:3000", // NÃO PODE TER BARRA NO FINAL!!!!!
+  })
+);
 
 // Ligar os roteadores na instância do Express
 const productRouter = require("./routes/product.routes");
