@@ -29,7 +29,7 @@ const ProductSchema = new mongoose.Schema({
     enum: ["Celular/Smartphone", "Computador/Notebook", "Acessórios", "Outros"],
     default: "Outros",
   },
-  tag: {
+  tags: {
     type: [String],
   },
 });

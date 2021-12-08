@@ -1,6 +1,7 @@
 // Importar o express
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const { ObjectId } = require("mongoose").Schema.Types;
 
 const SALT_ROUNDS = 10;
 
@@ -89,7 +90,16 @@ router.post("/login", async (req, res) => {
 
     const token = generateToken(foundUser);
 
-    res.status(200).json(token);
+    res
+      .status(200)
+      .json({
+        token,
+        user: {
+          _id: foundUser._id,
+          name: foundUser.name,
+          email: foundUser.email,
+        },
+      });
   } catch (err) {
     console.log(err);
   }

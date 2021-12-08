@@ -7,6 +7,10 @@ const router = express.Router();
 // Importar o modelo da coleção
 const ProductModel = require("../models/Product.model");
 
+// Importar instância do multer que faz os uploads
+const uploader = require("../config/cloudinary.config");
+const isAuthenticated = require("../middlewares/isAuthenticated");
+
 // REST => REpresentational State Transfer
 
 // Seguir as regras do REST: usar os métodos HTTP corretos pra cada ação (GET pra buscar, POST pra inserir, etc) e responder com o status HTTP correto (200 pra sucesso, 201 pra criação, 404 pra não encontrado, etc)
@@ -14,6 +18,22 @@ const ProductModel = require("../models/Product.model");
 // CRUD
 
 // Crud Create (POST)
+
+// Upload de arquivos no Cloudinary
+router.post(
+  "/upload",
+  isAuthenticated,
+  uploader.single("picture"),
+  (req, res) => {
+    if (!req.file) {
+      return res.status(500).json({ msg: "Upload de arquivo falhou." });
+    }
+
+    console.log(req.file);
+
+    return res.status(201).json({ url: req.file.path });
+  }
+);
 
 router.post("/product", async (req, res) => {
   try {

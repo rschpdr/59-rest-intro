@@ -23,7 +23,7 @@ app.use(morgan("dev"));
 // Configurando o servidor para aceitar requisições do nosso servidor do front (servidor do React)
 app.use(
   cors({
-    origin: "http://localhost:3000", // NÃO PODE TER BARRA NO FINAL!!!!!
+    origin: process.env.REACT_APP_URL, // NÃO PODE TER BARRA NO FINAL!!!!!
   })
 );
 
@@ -41,7 +41,7 @@ app.use(`/api/v${API_VERSION}`, userRouter);
 connectToDb
   .then(() => {
     // Escutar requisições em uma porta específica
-    app.listen(4000, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Servidor subiu com sucesso!");
     });
   })
